@@ -1,4 +1,4 @@
-$nbs = Get-ChildItem notebooks -Recurse | where-object {$_.name -like '*.ipynb'} | Sort-Object {$_.FullName}
+$nbs = Get-ChildItem notebooks -Recurse | where-object {$_.name -like '*.ipynb'} | Sort-Object {$_.FullName} | foreach-object {$_.FullName}
 
 $elements = @()
 
@@ -8,14 +8,12 @@ $elements += "| ------- | ------- | ------- | ------- |`r"
 
 foreach($nb in $nbs)
 {
-    if($nb.FullName -like '*.ipynb_checkpoints*')
+    if($nb -like '*.ipynb_checkpoints*')
     {
         continue
     }
 
-    $subject = $path.split("/")[1]
-
-    $json = ((get-content $nb.FullName) | ConvertFrom-json)
+    $json = ((get-content $nb) | ConvertFrom-json)
     $cell = $json.cells[0].source
     $cell_elements = $cell.Split([Environment]::NewLine)
     $cell_elements = $cell_elements | Where-Object({($_ -ne '')})
@@ -30,6 +28,7 @@ foreach($nb in $nbs)
     }
 
     $path = ($nb | Resolve-Path -Relative).replace(".\","").replace("\","/")
+    $subject = $path.split("/")[1]
 
     $new = "|<sub>" + $subject +"</sub>|<sub>" + $title + "</sub>|<sub>" + $desc + "...</sub>|<sub>[" + $path + "](" + $path + ")</sub>|`r"
 
