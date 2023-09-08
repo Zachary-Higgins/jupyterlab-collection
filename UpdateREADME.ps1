@@ -2,7 +2,7 @@ $nbs = Get-ChildItem notebooks -Recurse | where-object {$_.name -like '*.ipynb'}
 
 $elements = @()
 
-$elements = "<font size = `"2`">`r"
+$elements = "`r"
 $elements += "|Subject|Title|Description|Link|`r"
 $elements += "| ------- | ------- | ------- | ------- |`r"
 
@@ -31,7 +31,7 @@ foreach($nb in $nbs)
 
     $path = ($nb | Resolve-Path -Relative).replace(".\","").replace("\","/")
 
-    $new = "|" + $subject +"|" + $title + "|" + $desc + "...|[" + $path + "](" + $path + ")|`r"
+    $new = "|<font size = `"2`">" + $subject +"</font>|<font size = `"2`">" + $title + "</font>|<font size = `"2`">" + $desc + "...</font>|<font size = `"2`">[" + $path + "](" + $path + ")</font>|`r"
 
     $elements += $new
 }
@@ -43,6 +43,5 @@ $readme = (get-content README.md)
 $start_pos = $readme.IndexOf($pattern)
 $new_readme = $readme[0..$start_pos]
 $new_readme += $elements
-$new_readme += "</font>"
 
 $new_readme | Out-File README.md -Force
