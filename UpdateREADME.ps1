@@ -1,4 +1,4 @@
-$nbs = Get-ChildItem notebooks -Recurse | where-object {$_.name -like '*.ipynb'}
+$nbs = Get-ChildItem notebooks -Recurse | where-object {$_.name -like '*.ipynb'} | Sort-Object {$_.FullName}
 
 $elements = @()
 
