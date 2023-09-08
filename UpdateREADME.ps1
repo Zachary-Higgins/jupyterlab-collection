@@ -2,7 +2,7 @@ $nbs = Get-ChildItem notebooks -Recurse | where-object {$_.name -like '*.ipynb'}
 
 $elements = @()
 
-$elements = "<font size = `"2`">"
+$elements = "<font size = `"2`">`r"
 $elements += "|Subject|Title|Description|Link|`r"
 $elements += "| ------- | ------- | ------- | ------- |`r"
 
