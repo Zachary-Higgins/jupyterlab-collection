@@ -31,7 +31,7 @@ foreach($nb in $nbs)
 
     $path = ($nb | Resolve-Path -Relative).replace(".\","").replace("\","/")
 
-    $new = "|<font size = `"2`">" + $subject +"</font>|<font size = `"2`">" + $title + "</font>|<font size = `"2`">" + $desc + "...</font>|<font size = `"2`">[" + $path + "](" + $path + ")</font>|`r"
+    $new = "|<font size = `"1`">" + $subject +"</font>|<font size = `"1`">" + $title + "</font>|<font size = `"1`">" + $desc + "...</font>|<font size = `"1`">[" + $path + "](" + $path + ")</font>|`r"
 
     $elements += $new
 }
