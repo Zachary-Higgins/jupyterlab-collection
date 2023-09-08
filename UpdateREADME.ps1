@@ -1,10 +1,17 @@
 $nbs = Get-ChildItem notebooks -Recurse | where-object {$_.name -like '*.ipynb'}
 
+$elements = @()
+
 $elements = "|Subject|Title|Description|Link|`r"
 $elements += "| ------- | ------- | ------- | ------- |`r"
 
 foreach($nb in $nbs)
 {
+    if($nb.FullName -like '*.ipynb_checkpoints*')
+    {
+        continue
+    }
+
     $subject = $path.split("/")[1]
 
     $json = ((get-content $nb.FullName) | ConvertFrom-json)
