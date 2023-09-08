@@ -31,7 +31,7 @@ foreach($nb in $nbs)
 
     $path = ($nb | Resolve-Path -Relative).replace(".\","").replace("\","/")
 
-    $new = "|" + $subject +"|" + $title + "|" + $desc + "...|[" + $path + "](" + $path + ")|`r"
+    $new = "|<sub><sup>" + $subject +"</sup></sub>|<sub><sup>" + $title + "</sup></sub>|<sub><sup>" + $desc + "...</sup></sub>|<sub><sup>[" + $path + "](" + $path + ")</sup></sub>|`r"
 
     $elements += $new
 }
@@ -44,8 +44,6 @@ $readme = $readme[0..$end_pos] -join "`r"
 
 $new_readme = "$readme
 
-<div class=`"table-container`">
-$elements
-</div>"
+$elements"
 
 $new_readme | Out-File README.md -Force
