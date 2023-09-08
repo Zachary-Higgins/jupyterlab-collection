@@ -2,7 +2,8 @@ $nbs = Get-ChildItem notebooks -Recurse | where-object {$_.name -like '*.ipynb'}
 
 $elements = @()
 
-$elements = "|Subject|Title|Description|Link|`r"
+$elements = "<font size = `"2`">"
+$elements += "|Subject|Title|Description|Link|`r"
 $elements += "| ------- | ------- | ------- | ------- |`r"
 
 foreach($nb in $nbs)
@@ -42,5 +43,6 @@ $readme = (get-content README.md)
 $start_pos = $readme.IndexOf($pattern)
 $new_readme = $readme[0..$start_pos]
 $new_readme += $elements
+$new_readme += "</font>"
 
 $new_readme | Out-File README.md -Force
